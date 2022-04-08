@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REST Countries API with color them switcher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <a href="#" class="logo">Where in the world?</a>
+    <button class="btn-toggle">
+      <i class="fa-solid fa-moon"></i><span>Dark Mode</span>
+    </button>
+  </header>
+
+  <main id="app">
+    <div class="main-container">
+      <section class="search-filter-container">
+        <div class="search-field">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input v-model.trim="countryFilter" class="search-input" type="text" placeholder="Search for a country..." />
+        </div>
+
+        <select v-model="regionFilter" name="regions" id="regions" aria-label="regions">
+          <option value="">Filter by Region</option>
+          <option value="all">All</option>
+          <option value="africa">Africa</option>
+          <option value="americas">America</option>
+          <option value="asia">Asia</option>
+          <option value="europe">Europe</option>
+          <option value="oceania">Oceania</option>
+        </select>
+      </section>
+
+      <div class="cards">
+        <div v-for="country in getFilteredCountries" class="card card-{country.name}">
+          <img class="flag" :src="country.flag" alt="${country.name} flag" />
+          <div class="content">
+            <h3 class="name">{{country.name}}</h3>
+            <div><span class="country-info">Population: </span><span class="population">{{country.population}}</span>
+            </div>
+            <div><span class="country-info">Region: </span><span class="region">{{country.region}}</span></div>
+
+            <div><span class="country-info">Capital: </span><span class="capital">{{country.capital}}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="modal country-info-page"></section>
+    </div>
+  </main>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
